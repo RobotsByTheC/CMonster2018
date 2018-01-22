@@ -106,13 +106,18 @@ public class RobotMap {
     	elevatorTalon.set(ControlMode.PercentOutput, talonOutput);
     	//controlMode could be either velocity or percentOutput
     	
-    	driveBaseLeftVictor1.follow(driveBaseLeftTalon1);
+    	
+    	driveBaseLeftVictor1.set(ControlMode.Follower, talonOutput);
+    	driveBaseRightVictor1.set(ControlMode.Follower, talonOutput);
     	driveBaseRightVictor1.follow(driveBaseRightTalon1);
+    	driveBaseLeftVictor1.follow(driveBaseLeftTalon1);
+    
+    	
     	
     	//set feedback device
     	driveBaseLeftTalon1.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Absolute, 0, 10);
     	driveBaseRightTalon1.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Absolute, 1, 10);
-    	//what do the 3 integer arguments represent??
+    	
     	
     	//setF term
     	

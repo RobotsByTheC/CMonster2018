@@ -111,6 +111,7 @@ public class OI {
             climberUpStop.whenReleased(new climbUpStop());
             climberUpStart = new JoystickButton(logitech, 1);
             climberUpStart.whileHeld(new climbUpStart());
+            
             leftJoystick = new Joystick(1);
             
             rightJoystick = new Joystick(0);
