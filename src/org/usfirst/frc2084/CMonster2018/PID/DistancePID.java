@@ -14,10 +14,10 @@ public class DistancePID extends PIDSubsystem {
 		super("DistancePID", 0.0, 0.0, 0.0);
 		//NEED TO BE TUNED
 		
-		setAbsoluteTolerance(0.2);
+		setAbsoluteTolerance(0.2); //change after testing
 		getPIDController().setContinuous(false);
 		setInputRange(-10, 10);
-		setOutputRange(-0.25, 0.25);
+		setOutputRange(-0.25, 0.25); //what percent of total speed the auto should run at
 		
 		
 	}

@@ -12,6 +12,7 @@
 package org.usfirst.frc2084.CMonster2018.commands;
 import edu.wpi.first.wpilibj.command.Command;
 import org.usfirst.frc2084.CMonster2018.Robot;
+import org.usfirst.frc2084.CMonster2018.subsystems.ElevatorBase;
 
 /**
  *
@@ -37,6 +38,7 @@ public class elevatorDownStart extends Command {
     // Called just before this Command runs the first time
     @Override
     protected void initialize() {
+    	Robot.elevatorBase.elevatorDownStart();
     }
 
     // Called repeatedly when this Command is scheduled to run
@@ -47,7 +49,7 @@ public class elevatorDownStart extends Command {
     // Make this return true when this Command no longer needs to run execute()
     @Override
     protected boolean isFinished() {
-        return false;
+        return true;
     }
 
     // Called once after isFinished returns true

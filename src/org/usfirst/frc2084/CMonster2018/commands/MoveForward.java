@@ -62,7 +62,7 @@ public class MoveForward extends Command {
     	//setpoint of headingPID is zero
     	
     	leftTalon1.setSelectedSensorPosition(0, 0, 0); //what do the 3 ints represent
-    	//rightTalon1.setEncPosition(0);
+    	rightTalon1.setSelectedSensorPosition(0, 0, 0);
     	//libraries have changed - idk if the arguments in "selected sensor position" are right
     	
     }
