@@ -82,7 +82,7 @@ public class RobotMap {
 	public static HeadingPID headingPID = new HeadingPID();
 	
 	public static double AverageDistance;
-	public static double talonOutput;
+	public static double talonOutput = 0.5;
 	
 	public static AHRS ahrs; //the navX
 	
@@ -94,9 +94,9 @@ public class RobotMap {
     public static void init() {
     	
     	
-    	robotCompressor = new Compressor(1); //can either use default blank constructor or give it one int parameter
-    	shiftingGearboxSolenoid = new DoubleSolenoid(1,0,1);
-    	intakeSolenoid = new DoubleSolenoid(1,2,3);
+    	robotCompressor = new Compressor(0); //can either use default blank constructor or give it one int parameter
+    	shiftingGearboxSolenoid = new DoubleSolenoid(0,0,1);
+    	intakeSolenoid = new DoubleSolenoid(0,2,3);
     	
     	
 
@@ -114,49 +114,39 @@ public class RobotMap {
     	//wheels go/stop - button numbers 5 and 7
     	leftIntakeSpark = new Spark(2);
     	
-    	
-   
-    	driveBaseLeftTalon1.set(ControlMode.PercentOutput, talonOutput);
-    	driveBaseRightTalon1.set(ControlMode.PercentOutput, talonOutput);
-    	
-    	elevatorTalon.set(ControlMode.PercentOutput, talonOutput);
-    	//controlMode could be either velocity or percentOutput
-    	
-    	
-    	//setControlMode.follower is only for two motor controllers of the same type
-    	//use the follow() method instead??
-    	driveBaseLeftVictor1.set(ControlMode.Follower, 2);
-    	driveBaseRightVictor1.set(ControlMode.Follower, 4);
-    	//do I need this too??
-    	
+    	//these two chunks moved to before where control mode is set to percent output
+ 
     	driveBaseRightVictor1.follow(driveBaseRightTalon1);
     	driveBaseLeftVictor1.follow(driveBaseLeftTalon1);
     	
-    	//follower mode not working!!
-    
+    	driveBaseRightTalon1.setInverted(false);
+    	driveBaseLeftTalon1.setInverted(false);
+    	driveBaseRightVictor1.setInverted(false);
+    	driveBaseLeftVictor1.setInverted(false);
     	
     	
-    	final HeadingPID headingPID = new HeadingPID();
-    	final DistancePID distancePID = new DistancePID();
+    	driveBaseLeftTalon1.set(ControlMode.PercentOutput, talonOutput);
+    	driveBaseRightTalon1.set(ControlMode.PercentOutput, talonOutput);
+    	driveBaseRightVictor1.set(ControlMode.PercentOutput, talonOutput);
+    	driveBaseLeftVictor1.set(ControlMode.PercentOutput,  talonOutput);
+    	elevatorTalon.set(ControlMode.PercentOutput, 0);
+    	
+   
     	
     	/*
-    	 * not sure if this stuff is necessary or not for follower mode to work
+    	 * not sure if this stuff is necessary or not 
     	 * 
-    	driveBaseLeftTalon1.setInverted(false);
-    	driveBaseRightTalon1.setInverted(false);
-    	driveBaseLeftVictor1.setInverted(false);
-    	driveBaseRightVictor1.setInverted(false);
     	driveBaseLeftTalon1.setNeutralMode(com.ctre.phoenix.motorcontrol.NeutralMode.Brake);
     	driveBaseRightTalon1.setNeutralMode(com.ctre.phoenix.motorcontrol.NeutralMode.Brake);
     	*/
     	
   
     	//set feedback device
-    	driveBaseLeftTalon1.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Absolute, 0, 10);
-    	driveBaseRightTalon1.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Absolute, 1, 10);
+    	//driveBaseLeftTalon1.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Absolute, 0, 10);
+    	//driveBaseRightTalon1.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Absolute, 1, 10);
     	
-    	
-    	//need to transition to closed loop
+    	  
+    	//NEED TO TRANSITION TO CLOSED LOOP
     	
     	//need to calculate encoder's pulses per revolution
     	/*
@@ -168,19 +158,19 @@ public class RobotMap {
     	
     	
     	//set nominal/peak outputs voltage
-    			driveBaseLeftTalon1.configNominalOutputForward(+0.0f, 0);
-    			driveBaseRightTalon1.configNominalOutputReverse(-0.0f, 0);
-    			driveBaseLeftTalon1.configPeakOutputForward(+12.0f, 12);
-    			driveBaseRightTalon1.configPeakOutputReverse(-12.0f, -12);
-    			
-    			elevatorTalon.configNominalOutputForward(+0.0f, 0);
-    			elevatorTalon.configPeakOutputForward(+12.0f, 12);
-    			
-
+    			driveBaseLeftTalon1.configNominalOutputForward(0, 0);
+    			driveBaseRightTalon1.configNominalOutputReverse(0, 0);
+    			driveBaseLeftTalon1.configPeakOutputForward(1, 0);
+    			driveBaseRightTalon1.configPeakOutputReverse(-1, 0);
+    			//setting second argument to zero means no error will be reported if it times out.
+    			//should I make the second argument non-zero so an error will be reported?
+    			//but what non-zero number should I make it??
+    	
     			ahrs = new AHRS(I2C.Port.kMXP, (byte) 100); // the navX!!
     			//needed to import I2C above
     	
     }
+    
     
     
 }

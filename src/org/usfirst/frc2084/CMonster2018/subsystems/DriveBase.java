@@ -62,8 +62,8 @@ public class DriveBase extends Subsystem {
 	
 	private final AHRS ahrs = RobotMap.ahrs; //navX gyro
 	
-	double leftMotorSpeed;
-	double rightMotorSpeed;
+	public static double leftMotorSpeed;
+	public static double rightMotorSpeed;
 	double moveSpeed;
 	double rotateSpeed;
 	public static double LeftDistance;
@@ -128,12 +128,12 @@ public class DriveBase extends Subsystem {
 	
 	public void JoystickInputs(Joystick RightJoystick, Joystick LeftJoystick) {
 		//teleoperated method 
-		leftMotorSpeed = LeftJoystick.getY();
+		leftMotorSpeed = LeftJoystick.getY(); //get value from 1 to -1 from the joysticks, then set it to the talons
 		rightMotorSpeed = RightJoystick.getY();
-		rightTalon1.set(rightMotorSpeed * -1); //don't know for sure if this is the max rpm
-		//once running closed loop, need to multiply by max rpm
-		//might change with shifting gearboxes
-		leftTalon1.set(leftMotorSpeed * -1); //set talons to the speed 1 to -1
+		rightTalon1.set(rightMotorSpeed * -1); //once running closed loop, need to multiply by max rpm+
+		leftTalon1.set(leftMotorSpeed * -1); 
+		rightVictor1.set(rightMotorSpeed * -1); //bypass the follower mode for now since it doesn't work
+		leftVictor1.set(leftMotorSpeed * -1); 
 		
 		
 		
@@ -144,8 +144,7 @@ public class DriveBase extends Subsystem {
 			shiftingGearboxSolenoid.set(DoubleSolenoid.Value.kReverse);
 		}
 		
-		
-		
+	
 		SmartDashboard.putNumber("LeftSpeed", leftMotorSpeed); //show data on the smart dashboard
 		SmartDashboard.putNumber("RightSpeed", rightMotorSpeed);
 	}

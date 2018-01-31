@@ -53,6 +53,7 @@ public class Robot extends TimedRobot {
      */
     @Override
     public void robotInit() {
+   
         RobotMap.init();
        
         
@@ -196,6 +197,13 @@ public class Robot extends TimedRobot {
         Scheduler.getInstance().run();
        
     }
+    
+    public void testPeriodic() {
+		//LiveWindow.run();
+		Robot.driveBase.EnableDriveBase();
+		Robot.driveBase.DriveAutonomous();
+		SmartDashboard.putNumber("AV Distance", RobotMap.AverageDistance);
+	}
     
    
 }

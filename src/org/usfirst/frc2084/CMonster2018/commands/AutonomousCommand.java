@@ -12,6 +12,7 @@
 package org.usfirst.frc2084.CMonster2018.commands;
 import edu.wpi.first.wpilibj.command.Command;
 import org.usfirst.frc2084.CMonster2018.Robot;
+import org.usfirst.frc2084.CMonster2018.RobotMap;
 
 /**
  *
@@ -37,6 +38,7 @@ public class AutonomousCommand extends Command {
     // Called just before this Command runs the first time
     @Override
     protected void initialize() {
+    	RobotMap.ahrs.reset();
     	Robot.driveBase.EnableDriveBase();
     }
 
