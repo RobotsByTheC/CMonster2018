@@ -116,23 +116,12 @@ public class RobotMap {
     	
     	//these two chunks moved to before where control mode is set to percent output
  
-    	driveBaseRightVictor1.follow(driveBaseRightTalon1);
-    	driveBaseLeftVictor1.follow(driveBaseLeftTalon1);
-    	
     	driveBaseRightTalon1.setInverted(false);
     	driveBaseLeftTalon1.setInverted(false);
     	driveBaseRightVictor1.setInverted(false);
     	driveBaseLeftVictor1.setInverted(false);
     	
-    	
-    	driveBaseLeftTalon1.set(ControlMode.PercentOutput, talonOutput);
-    	driveBaseRightTalon1.set(ControlMode.PercentOutput, talonOutput);
-    	driveBaseRightVictor1.set(ControlMode.PercentOutput, talonOutput);
-    	driveBaseLeftVictor1.set(ControlMode.PercentOutput,  talonOutput);
-    	elevatorTalon.set(ControlMode.PercentOutput, 0);
-    	
    
-    	
     	/*
     	 * not sure if this stuff is necessary or not 
     	 * 
@@ -163,8 +152,8 @@ public class RobotMap {
     			driveBaseLeftTalon1.configPeakOutputForward(1, 0);
     			driveBaseRightTalon1.configPeakOutputReverse(-1, 0);
     			//setting second argument to zero means no error will be reported if it times out.
-    			//should I make the second argument non-zero so an error will be reported?
-    			//but what non-zero number should I make it??
+    			//should I make the second argument non-zero so an error will be reported,
+    			//but what non-zero number?
     	
     			ahrs = new AHRS(I2C.Port.kMXP, (byte) 100); // the navX!!
     			//needed to import I2C above

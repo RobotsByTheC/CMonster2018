@@ -19,6 +19,7 @@ import org.usfirst.frc2084.CMonster2018.PID.HeadingPID;
 import org.usfirst.frc2084.CMonster2018.commands.*;
 
 import com.ctre.CANTalon;
+import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 import com.ctre.phoenix.motorcontrol.can.WPI_VictorSPX;
@@ -130,13 +131,14 @@ public class DriveBase extends Subsystem {
 		//teleoperated method 
 		leftMotorSpeed = LeftJoystick.getY(); //get value from 1 to -1 from the joysticks, then set it to the talons
 		rightMotorSpeed = RightJoystick.getY();
-		rightTalon1.set(rightMotorSpeed * -1); //once running closed loop, need to multiply by max rpm+
-		leftTalon1.set(leftMotorSpeed * -1); 
-		rightVictor1.set(rightMotorSpeed * -1); //bypass the follower mode for now since it doesn't work
-		leftVictor1.set(leftMotorSpeed * -1); 
-		
-		
-		
+		rightTalon1.set(ControlMode.PercentOutput, (leftMotorSpeed * -1)); //once running closed loop, need to multiply by max rpm+
+		leftTalon1.set(ControlMode.PercentOutput, rightMotorSpeed); 
+		rightVictor1.follow(rightTalon1);
+    	leftVictor1.follow(leftTalon1);
+    
+    	//put the follower stuff in here instead of 
+    	
+    	
 		if (shifted == true) {
 			shiftingGearboxSolenoid.set(DoubleSolenoid.Value.kForward);
 		}
