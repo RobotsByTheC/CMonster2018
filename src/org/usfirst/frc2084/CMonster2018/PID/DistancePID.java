@@ -1,6 +1,8 @@
 package org.usfirst.frc2084.CMonster2018.PID;
 
 import edu.wpi.first.wpilibj.command.PIDSubsystem;
+
+import org.usfirst.frc2084.CMonster2018.RobotMap;
 import org.usfirst.frc2084.CMonster2018.subsystems.DriveBase;
 
 public class DistancePID extends PIDSubsystem {
@@ -27,6 +29,8 @@ public class DistancePID extends PIDSubsystem {
 	}
 	
 	
+	
+	
 	protected void usePIDOutput(double output) {
 		// TODO Auto-generated method stub
 		Output = (output);
@@ -45,7 +49,7 @@ public class DistancePID extends PIDSubsystem {
 	@Override
 	protected double returnPIDInput() {
 		// TODO Auto-generated method stub
-		return 0;
+		return RobotMap.AverageDistance;
 	}
 
 }

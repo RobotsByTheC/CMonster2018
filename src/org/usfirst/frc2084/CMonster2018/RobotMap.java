@@ -106,6 +106,7 @@ public class RobotMap {
     	driveBaseRightVictor1 = new WPI_VictorSPX(5);
     	elevatorTalon = new WPI_TalonSRX(6);
     	
+    	
     	climberSpark = new Spark(0); //number is the pwm channels on the roboRIO
     	//button numbers 9 and 1
     	
@@ -114,7 +115,7 @@ public class RobotMap {
     	//wheels go/stop - button numbers 5 and 7
     	leftIntakeSpark = new Spark(2);
     	
-    	//these two chunks moved to before where control mode is set to percent output
+    	 
  
     	driveBaseRightTalon1.setInverted(false);
     	driveBaseLeftTalon1.setInverted(false);
@@ -129,21 +130,30 @@ public class RobotMap {
     	driveBaseRightTalon1.setNeutralMode(com.ctre.phoenix.motorcontrol.NeutralMode.Brake);
     	*/
     	
-  
+    	//TRANSITION TO CLOSED LOOP
     	//set feedback device
-    	//driveBaseLeftTalon1.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Absolute, 0, 10);
-    	//driveBaseRightTalon1.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Absolute, 1, 10);
-    	
-    	  
-    	//NEED TO TRANSITION TO CLOSED LOOP
-    	
-    	//need to calculate encoder's pulses per revolution
-    	/*
-    	 * driveBaseRightTalon1.configEncoderCodesPerRev
-    	 */
-    	
+    	driveBaseLeftTalon1.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Absolute, 0, 0);
+    	driveBaseRightTalon1.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Absolute, 0, 0);
     	
     	//setF term
+    	driveBaseLeftTalon1.config_kF(0, 0.146484375, 0);
+    	driveBaseRightTalon1.config_kF(0, 0.146484375, 0);
+    driveBaseLeftTalon1.config_kP(0, 0.034777502111, 0);
+    	driveBaseRightTalon1.config_kP(0, 0.03027688419, 0);
+    	
+    	
+    	
+    	
+    	//ONLY THING DIFFERENT: ConfigEncoderCodesPerRev
+    	//need to calculate encoder's pulses per revolution
+    	//driveBaseLeftEncoder.setDistancePerPulse((1/4096));
+    	//driveBaseRightEncoder.setDistancePerPulse(1/4096);
+    	
+    	//the number 1/4096 represents the number of full rotations 
+    	//that the wheel has made in the time of one pulse of the encoder
+    	//really small number because pulses are fast
+    	//4096 is the number of pulses per revolution (ppr)
+    	
     	
     	
     	//set nominal/peak outputs voltage

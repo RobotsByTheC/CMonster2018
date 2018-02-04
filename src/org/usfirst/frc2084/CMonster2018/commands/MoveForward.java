@@ -11,6 +11,8 @@
 
 package org.usfirst.frc2084.CMonster2018.commands;
 import edu.wpi.first.wpilibj.command.Command;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+
 import org.usfirst.frc2084.CMonster2018.Robot;
 import org.usfirst.frc2084.CMonster2018.RobotMap;
 import org.usfirst.frc2084.CMonster2018.PID.DistancePID;
@@ -58,12 +60,10 @@ public class MoveForward extends Command {
     	
     	RobotMap.ahrs.reset();
     	Robot.driveBase.EnableDriveBase();
+    	//encoder position is reset in "EnableDriveBase" so don't have to do it again
     	headingPID.setSetpoint(0);
     	//setpoint of headingPID is zero
     	
-    	leftTalon1.setSelectedSensorPosition(0, 0, 0); //what do the 3 ints represent
-    	rightTalon1.setSelectedSensorPosition(0, 0, 0);
-    	//libraries have changed - idk if the arguments in "selected sensor position" are right
     	
     }
 
@@ -73,6 +73,7 @@ public class MoveForward extends Command {
     	distancePID.setSetpoint(m_Distance);
     	//set distancePID setpoint to distance parameter
     	Robot.driveBase.DriveAutonomous();
+    	SmartDashboard.putNumber("NAVX yaw", (double)RobotMap.ahrs.getYaw());
     }
 
     // Make this return true when this Command no longer needs to run execute()
