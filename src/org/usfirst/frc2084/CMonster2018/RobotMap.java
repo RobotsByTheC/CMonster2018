@@ -19,6 +19,7 @@ import edu.wpi.first.wpilibj.SpeedController;
 import edu.wpi.first.wpilibj.Talon;
 
 import org.usfirst.frc2084.CMonster2018.PID.DistancePID;
+import org.usfirst.frc2084.CMonster2018.PID.ElevatorPID;
 import org.usfirst.frc2084.CMonster2018.PID.HeadingPID;
 
 import com.ctre.*;
@@ -80,6 +81,7 @@ public class RobotMap {
 	
 	public static DistancePID distancePID = new DistancePID();
 	public static HeadingPID headingPID = new HeadingPID();
+	public static ElevatorPID elevatorPID = new ElevatorPID();
 	
 	public static double AverageDistance;
 	public static double talonOutput = 0.5;
@@ -106,6 +108,7 @@ public class RobotMap {
     	driveBaseRightVictor1 = new WPI_VictorSPX(5);
     	elevatorTalon = new WPI_TalonSRX(6);
     	
+    	
     	climberSpark = new Spark(0); //number is the pwm channels on the roboRIO
     	//button numbers 9 and 1
     	
@@ -114,7 +117,7 @@ public class RobotMap {
     	//wheels go/stop - button numbers 5 and 7
     	leftIntakeSpark = new Spark(2);
     	
-    	//these two chunks moved to before where control mode is set to percent output
+    	 
  
     	driveBaseRightTalon1.setInverted(false);
     	driveBaseLeftTalon1.setInverted(false);
@@ -129,32 +132,55 @@ public class RobotMap {
     	driveBaseRightTalon1.setNeutralMode(com.ctre.phoenix.motorcontrol.NeutralMode.Brake);
     	*/
     	
-  
+    	//TRANSITION TO CLOSED LOOP
     	//set feedback device
-    	//driveBaseLeftTalon1.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Absolute, 0, 10);
-    	//driveBaseRightTalon1.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Absolute, 1, 10);
-    	
-    	  
-    	//NEED TO TRANSITION TO CLOSED LOOP
-    	
-    	//need to calculate encoder's pulses per revolution
-    	/*
-    	 * driveBaseRightTalon1.configEncoderCodesPerRev
-    	 */
-    	
+    	driveBaseLeftTalon1.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Absolute, 0, 0);
+    	driveBaseRightTalon1.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Absolute, 0, 0);
+    	elevatorTalon.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Absolute, 0, 0);
     	
     	//setF term
+    	driveBaseLeftTalon1.config_kF(0, 0.146484375, 0);
+    	driveBaseRightTalon1.config_kF(0, 0.146484375, 0);
+    	driveBaseLeftTalon1.config_kP(0, 0.00787568807, 0);
+    	driveBaseRightTalon1.config_kP(0, 0.008254326923, 0);
+    	
+    	driveBaseRightTalon1.configNeutralDeadband(0.04, 0);
+    	driveBaseLeftTalon1.configNeutralDeadband(0.04, 0);
+    	//deadband elimination
+    	
+    	
+    	
+    	
+    	
+    	//need to calculate encoder's pulses per revolution
+    	//driveBaseLeftEncoder.setDistancePerPulse((1/4096));
+    	//driveBaseRightEncoder.setDistancePerPulse(1/4096);
+    	
+    	//the number 1/4096 represents the number of full rotations 
+    	//that the wheel has made in the time of one pulse of the encoder
+    	//really small number because pulses are fast
+    	//4096 is the number of pulses per revolution (ppr)
+    	
     	
     	
     	//set nominal/peak outputs voltage
     			driveBaseLeftTalon1.configNominalOutputForward(0, 0);
+    			driveBaseLeftTalon1.configNominalOutputReverse(0, 0);
+    			driveBaseRightTalon1.configNominalOutputForward(0,0);
     			driveBaseRightTalon1.configNominalOutputReverse(0, 0);
+    			
     			driveBaseLeftTalon1.configPeakOutputForward(1, 0);
+    			driveBaseLeftTalon1.configPeakOutputReverse(-1, 0);
+    			driveBaseRightTalon1.configPeakOutputForward(1, 0);
     			driveBaseRightTalon1.configPeakOutputReverse(-1, 0);
+    			
+    			elevatorTalon.configNominalOutputForward(0, 0);
+    			elevatorTalon.configNominalOutputReverse(0,0);
+    			elevatorTalon.configPeakOutputForward(1, 0);
+    			elevatorTalon.configPeakOutputReverse(-1, 0);
+    			
     			//setting second argument to zero means no error will be reported if it times out.
-    			//should I make the second argument non-zero so an error will be reported,
-    			//but what non-zero number?
-    	
+    		
     			ahrs = new AHRS(I2C.Port.kMXP, (byte) 100); // the navX!!
     			//needed to import I2C above
     	
