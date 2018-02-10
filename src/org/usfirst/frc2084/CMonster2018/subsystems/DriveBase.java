@@ -81,8 +81,11 @@ public class DriveBase extends Subsystem {
 	public static boolean shifted = false;
 	int gearCheck = 0;
 	double nativeUnits = 0;
+<<<<<<< HEAD
 	boolean autoCheck = false;
 	
+=======
+>>>>>>> af3868b1acf66bfe1e604fdf4b1ccee0fc457a0e
 	
 	HeadingPID headingPID = RobotMap.headingPID;
 	DistancePID distancePID = RobotMap.distancePID;
@@ -139,10 +142,25 @@ public class DriveBase extends Subsystem {
 		rightMotorSpeed = returnData[1];
 		
 		
+<<<<<<< HEAD
 		SmartDashboard.putNumber("MoveSpeed", moveSpeed);
 		SmartDashboard.putNumber("RotateSpeed", rotateSpeed);
 		
+=======
+		leftTalon1.set(leftMotorSpeed * 12039); //max rpm calculated to be 1287
+		rightTalon1.set(rightMotorSpeed * 12039);
+		//rightVictor1.follow(rightTalon1);
+    	//leftVictor1.follow(leftTalon1);
+    
 		
+		LeftDistance = leftTalon1.getSelectedSensorPosition(0)/4096 * RobotMap.DISTANCE_PER_ROTATION;
+		RightDistance = rightTalon1.getSelectedSensorPosition(0)/4096 * RobotMap.DISTANCE_PER_ROTATION;
+>>>>>>> af3868b1acf66bfe1e604fdf4b1ccee0fc457a0e
+		
+		SmartDashboard.putNumber("LeftDistance", LeftDistance);
+		SmartDashboard.putNumber("RightDistance", RightDistance);
+		SmartDashboard.putNumber("LeftMotorSpeed", leftMotorSpeed);
+		SmartDashboard.putNumber("RightMotorSpeed", rightMotorSpeed);
 		
 		leftTalon1.set(leftMotorSpeed); //max rpm calculated to be 1287
 		rightTalon1.set(rightMotorSpeed); //do not make one of these negatives
@@ -182,10 +200,13 @@ public class DriveBase extends Subsystem {
 		leftMotorSpeed = LeftJoystick.getY(); //get value from 1 to -1 from the joysticks, then set it to the talons
 		rightMotorSpeed = RightJoystick.getY();
 		
+<<<<<<< HEAD
 		//joystick sensitivity inputs replace getY stuff
 		leftMotorSpeed = joystickSensitivity.GetOutput(leftMotorSpeed);
 		rightMotorSpeed = joystickSensitivity.GetOutput(rightMotorSpeed);
 		
+=======
+>>>>>>> af3868b1acf66bfe1e604fdf4b1ccee0fc457a0e
 		//don't use if/else for now since no pneumatics yet
 		/*
 		if (gearCheck == 0) {
@@ -196,6 +217,7 @@ public class DriveBase extends Subsystem {
 		}
 		*/
 		
+<<<<<<< HEAD
 		rightTalon1.set(ControlMode.Velocity, leftMotorSpeed * 12039); //running closed loop, need to multiply by max rpm
 		leftTalon1.set(ControlMode.Velocity, rightMotorSpeed * -12039); 
 		rightVictor1.follow(rightTalon1);
@@ -205,6 +227,13 @@ public class DriveBase extends Subsystem {
 		LeftDistance = (leftTalon1.getSelectedSensorPosition(0)/4096) * RobotMap.DISTANCE_PER_ROTATION;
 		RightDistance = (rightTalon1.getSelectedSensorPosition(0)/4096) * RobotMap.DISTANCE_PER_ROTATION;
 		RobotMap.AverageDistance = (LeftDistance + RightDistance) / 2;
+=======
+		rightTalon1.set(ControlMode.Velocity, rightMotorSpeed * 12039); //running closed loop, need to multiply by max rpm+
+		leftTalon1.set(ControlMode.Velocity, leftMotorSpeed * -12039); 
+		rightVictor1.follow(rightTalon1);
+    	leftVictor1.follow(leftTalon1);
+    	
+>>>>>>> af3868b1acf66bfe1e604fdf4b1ccee0fc457a0e
 		
     	 
     	

@@ -136,11 +136,15 @@ public class RobotMap {
     	//set feedback device
     	driveBaseLeftTalon1.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Absolute, 0, 0);
     	driveBaseRightTalon1.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Absolute, 0, 0);
+<<<<<<< HEAD
     	elevatorTalon.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Absolute, 0, 0);
+=======
+>>>>>>> af3868b1acf66bfe1e604fdf4b1ccee0fc457a0e
     	
     	//setF term
     	driveBaseLeftTalon1.config_kF(0, 0.146484375, 0);
     	driveBaseRightTalon1.config_kF(0, 0.146484375, 0);
+<<<<<<< HEAD
     	driveBaseLeftTalon1.config_kP(0, 0.00787568807, 0);
     	driveBaseRightTalon1.config_kP(0, 0.008254326923, 0);
     	
@@ -149,9 +153,15 @@ public class RobotMap {
     	//deadband elimination
     	
     	
+=======
+    driveBaseLeftTalon1.config_kP(0, 0.034777502111, 0);
+    	driveBaseRightTalon1.config_kP(0, 0.03027688419, 0);
+>>>>>>> af3868b1acf66bfe1e604fdf4b1ccee0fc457a0e
     	
     	
     	
+    	
+    	//ONLY THING DIFFERENT: ConfigEncoderCodesPerRev
     	//need to calculate encoder's pulses per revolution
     	//driveBaseLeftEncoder.setDistancePerPulse((1/4096));
     	//driveBaseRightEncoder.setDistancePerPulse(1/4096);

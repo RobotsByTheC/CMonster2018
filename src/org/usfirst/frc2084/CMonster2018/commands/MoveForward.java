@@ -67,7 +67,10 @@ public class MoveForward extends Command {
     	headingPID.setSetpoint(0);
     	//setpoint of headingPID is zero
     	
+<<<<<<< HEAD
     	
+=======
+>>>>>>> af3868b1acf66bfe1e604fdf4b1ccee0fc457a0e
     	
     }
 
@@ -79,8 +82,11 @@ public class MoveForward extends Command {
     	//test with both "setPoint" and "set"
     	//set distancePID setpoint to distance parameter
     	Robot.driveBase.DriveAutonomous();
+<<<<<<< HEAD
     	executeCheck = true;
     	SmartDashboard.putBoolean("MoveForwardRunning?", executeCheck); //this returns true so this execute method is running
+=======
+>>>>>>> af3868b1acf66bfe1e604fdf4b1ccee0fc457a0e
     	SmartDashboard.putNumber("NAVX yaw", (double)RobotMap.ahrs.getYaw());
     }
 

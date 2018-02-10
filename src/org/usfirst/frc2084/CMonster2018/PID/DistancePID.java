@@ -1,7 +1,10 @@
 package org.usfirst.frc2084.CMonster2018.PID;
 
 import edu.wpi.first.wpilibj.command.PIDSubsystem;
+<<<<<<< HEAD
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+=======
+>>>>>>> af3868b1acf66bfe1e604fdf4b1ccee0fc457a0e
 
 import org.usfirst.frc2084.CMonster2018.RobotMap;
 import org.usfirst.frc2084.CMonster2018.subsystems.DriveBase;
@@ -37,7 +40,13 @@ public class DistancePID extends PIDSubsystem {
 		return RobotMap.AverageDistance;
 	}
 	
+<<<<<<< HEAD
 	protected void usePIDOutput(double output) { 
+=======
+	
+	
+	protected void usePIDOutput(double output) {
+>>>>>>> af3868b1acf66bfe1e604fdf4b1ccee0fc457a0e
 		// TODO Auto-generated method stub
 		Output = (output);
 		SmartDashboard.putNumber("DistancePIDOutput", Output);
@@ -54,7 +63,15 @@ public class DistancePID extends PIDSubsystem {
 		
 	}
 
+<<<<<<< HEAD
 	
 	
+=======
+	@Override
+	protected double returnPIDInput() {
+		// TODO Auto-generated method stub
+		return RobotMap.AverageDistance;
+	}
+>>>>>>> af3868b1acf66bfe1e604fdf4b1ccee0fc457a0e
 
 }
