@@ -49,8 +49,9 @@ public class Turn extends Command {
     // Called just before this Command runs the first time
     @Override
     protected void initialize() {
+    	headingPID.enable();
     	headingPID.ResetPID();
-    	headingPID.setAbsoluteTolerance(1.5); //absolute tolerance can be changed later
+    	headingPID.setAbsoluteTolerance(1.5); 
     	Robot.driveBase.EnableDriveBase();
     	ahrs.reset(); //reset navX
     }

@@ -19,6 +19,7 @@ import edu.wpi.first.wpilibj.SpeedController;
 import edu.wpi.first.wpilibj.Talon;
 
 import org.usfirst.frc2084.CMonster2018.PID.DistancePID;
+import org.usfirst.frc2084.CMonster2018.PID.ElevatorPID;
 import org.usfirst.frc2084.CMonster2018.PID.HeadingPID;
 
 import com.ctre.*;
@@ -67,6 +68,7 @@ public class RobotMap {
 	public static WPI_VictorSPX driveBaseRightVictor1;
 	public static WPI_VictorSPX driveBaseLeftVictor1;
 	public static WPI_TalonSRX elevatorTalon;
+	public static WPI_TalonSRX intakeTalon;
 	public static SpeedController climberSpark;
 	public static SpeedController rightIntakeSpark;
 	public static SpeedController leftIntakeSpark;
@@ -105,6 +107,8 @@ public class RobotMap {
     	driveBaseLeftVictor1 = new WPI_VictorSPX(3);
     	driveBaseRightVictor1 = new WPI_VictorSPX(5);
     	elevatorTalon = new WPI_TalonSRX(6);
+    	intakeTalon = new WPI_TalonSRX(7); 
+    	
     	
     	climberSpark = new Spark(0); //number is the pwm channels on the roboRIO
     	//button numbers 9 and 1
@@ -114,7 +118,7 @@ public class RobotMap {
     	//wheels go/stop - button numbers 5 and 7
     	leftIntakeSpark = new Spark(2);
     	
-    	//these two chunks moved to before where control mode is set to percent output
+    	 
  
     	driveBaseRightTalon1.setInverted(false);
     	driveBaseLeftTalon1.setInverted(false);
@@ -129,32 +133,66 @@ public class RobotMap {
     	driveBaseRightTalon1.setNeutralMode(com.ctre.phoenix.motorcontrol.NeutralMode.Brake);
     	*/
     	
-  
+    	//CLOSED LOOP
     	//set feedback device
-    	//driveBaseLeftTalon1.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Absolute, 0, 10);
-    	//driveBaseRightTalon1.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Absolute, 1, 10);
-    	
-    	  
-    	//NEED TO TRANSITION TO CLOSED LOOP
-    	
-    	//need to calculate encoder's pulses per revolution
-    	/*
-    	 * driveBaseRightTalon1.configEncoderCodesPerRev
-    	 */
-    	
+    	driveBaseLeftTalon1.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Absolute, 0, 0);
+    	driveBaseRightTalon1.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Absolute, 0, 0);
+    	//elevatorTalon.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Absolute, 0, 0);
+    	//intakeTalon.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Absolute, 0, 0);
     	
     	//setF term
+    	driveBaseLeftTalon1.config_kF(0, 0.146484375, 0);
+    	driveBaseRightTalon1.config_kF(0, 0.146484375, 0);
+    	driveBaseLeftTalon1.config_kP(0, 0.00787568807, 0);
+    	driveBaseRightTalon1.config_kP(0, 0.008254326923, 0);
+    	//intakeTalon.config_kP(0, 0.009587, 0);
+    	//intakeTalon.config_kF(0, 0.14648, 0);
+    	
+    	driveBaseRightTalon1.configNeutralDeadband(0.04, 0);
+    	driveBaseLeftTalon1.configNeutralDeadband(0.04, 0);
+    	driveBaseLeftTalon1.configAllowableClosedloopError(0, 1, 0);
+    	driveBaseRightTalon1.configAllowableClosedloopError(0, 1, 0);
+    	//deadband elimination
+    	
+    	
+    	
+    	
+    	
+    	//calculate encoder's pulses per revolution
+    	//driveBaseLeftEncoder.setDistancePerPulse((1/4096));
+    	//driveBaseRightEncoder.setDistancePerPulse(1/4096);
+    	
+    	//the number 1/4096 represents the number of full rotations 
+    	//that the wheel has made in the time of one pulse of the encoder
+    	//really small number because pulses are fast
+    	//4096 is the number of pulses per revolution (ppr)
+    	//26300 is the numer of pulses per 100ms
+    	
     	
     	
     	//set nominal/peak outputs voltage
     			driveBaseLeftTalon1.configNominalOutputForward(0, 0);
+    			driveBaseLeftTalon1.configNominalOutputReverse(0, 0);
+    			driveBaseRightTalon1.configNominalOutputForward(0,0);
     			driveBaseRightTalon1.configNominalOutputReverse(0, 0);
+    			
     			driveBaseLeftTalon1.configPeakOutputForward(1, 0);
+    			driveBaseLeftTalon1.configPeakOutputReverse(-1, 0);
+    			driveBaseRightTalon1.configPeakOutputForward(1, 0);
     			driveBaseRightTalon1.configPeakOutputReverse(-1, 0);
+    			
+    			elevatorTalon.configNominalOutputForward(0, 0);
+    			elevatorTalon.configNominalOutputReverse(0,0);
+    			elevatorTalon.configPeakOutputForward(1, 0);
+    			elevatorTalon.configPeakOutputReverse(-1, 0);
+    			
+    			intakeTalon.configNominalOutputForward(0, 0);
+    			intakeTalon.configNominalOutputReverse(0,0);
+    			intakeTalon.configPeakOutputForward(1, 0);
+    			intakeTalon.configPeakOutputReverse(-1, 0);
+    			
     			//setting second argument to zero means no error will be reported if it times out.
-    			//should I make the second argument non-zero so an error will be reported,
-    			//but what non-zero number?
-    	
+    		
     			ahrs = new AHRS(I2C.Port.kMXP, (byte) 100); // the navX!!
     			//needed to import I2C above
     	

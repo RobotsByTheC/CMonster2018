@@ -16,7 +16,15 @@ public class gearboxShift extends Command{
 	
 	 protected void initialize() {
 	    	//move the pneumatic to shift gears in the gearbox
-		 	Robot.driveBase.shifted = !Robot.driveBase.shifted;
+		 
+		 Robot.driveBase.shifted = !Robot.driveBase.shifted;
+		 
+		 	if (Robot.driveBase.shifted == true) {
+		 		Robot.driveBase.shiftGearboxBackward();
+		 	}
+		 	else {
+		 		Robot.driveBase.shiftGearboxForward();
+		 	}
 		 
 	    }
 
