@@ -65,5 +65,6 @@ public class climbDownStart extends Command {
     // subsystems is scheduled to run
     @Override
     protected void interrupted() {
+    	System.out.println("InterruptedCalled");
     }
 }
